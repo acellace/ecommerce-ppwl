@@ -17,32 +17,37 @@ use App\Http\Controllers\CartController;
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
 Route::middleware('auth')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    // Route untuk Products & Carts
-    //Route::resource('products', ProductController::class);
-   // Route::resource('carts', CartController::class);
-//});
-    Route::resource('products', ProductController::class);
+   
     Route::middleware(['auth', 'role:Admin'])->group(function () {
+    Route::resource('products', ProductController::class);
     Route::get('/admin/products', [ProductController::class, 'index'])->name('admin.products.index');
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+   // Route::get('/admin/products/create', [ProductController::class, 'create'])->name('admin.products.create');
+   // Route::post('/admin/products', [ProductController::class, 'store'])->name('admin.products.store');
+    Route::get('/admin/products/{product}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
+    Route::put('/admin/products/{product}', [ProductController::class, 'update'])->name('admin.products.update');
+    Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+
     });
 
+    Route::resource('carts', CartController::class);
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index'); // Ubah dari 'carts.index' ke 'cart.index'
 
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/add/{productId}', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/cart/update/{cartId}', [CartController::class, 'update'])->name('cart.update');
-    Route::delete('/cart/remove/{cartId}', [CartController::class, 'remove'])->name('cart.remove');
-    // Route untuk produk
-    //Route::middleware(['auth', 'role:admin'])->group(function () {
-    //Route::resource('products', ProductController::class);
-//});
     
-});
+    
+    //Route::post('/cart/add/{productId}', [CartController::class, 'add'])->name('carts.add');
+    //Route::post('/cart/update/{cartId}', [CartController::class, 'update'])->name('carts.update');
+    //Route::delete('/cart/remove/{cartId}', [CartController::class, 'remove'])->name('carts.remove');
+   
+    });
+    
+

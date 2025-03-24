@@ -19,6 +19,7 @@
                 <a href="{{ route('cart.index') }}" class="btn btn-primary">View Cart</a>
                 <a href="{{ route('products.index') }}" class="btn btn-secondary">View Products</a>
             </div>
+            
         @endif
     @else
         <div class="alert alert-warning" role="alert">
