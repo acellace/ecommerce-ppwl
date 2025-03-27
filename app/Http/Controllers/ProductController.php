@@ -38,10 +38,12 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
-    public function show(Product $product)
+    public function show($id)
     {
+        $product = Product::findOrFail($id);
         return view('products.show', compact('product'));
     }
+
 
     public function edit(Product $product)
     {
@@ -64,5 +66,11 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
+    }
+
+    public function userProducts()
+    {
+        $products = Product::all();
+        return view('products.user.index', compact('products'));
     }
 }

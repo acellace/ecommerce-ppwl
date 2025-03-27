@@ -23,9 +23,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('isAdmin', function ($user) {
-            return $user->email === 'admin@toko.com';
-        });
+        //Gate::define('isAdmin', function ($user) {
+        //    return $user->email === 'admin@toko.com';
+       // });
     }
 
 }

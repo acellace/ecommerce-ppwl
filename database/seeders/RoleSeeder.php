@@ -19,7 +19,10 @@ class RoleSeeder extends Seeder
             'edit product',
             'delete product',
             'view product',
-            'manage cart',
+            'view-cart',
+            'add-to-cart',
+            'update-cart',
+            'delete-cart'
         ];
 
         // Buat role jika belum ada
@@ -41,7 +44,7 @@ class RoleSeeder extends Seeder
         }
 
         if ($userRole) {
-            $userRole->syncPermissions(['view product', 'manage cart']);
+            $userRole->syncPermissions(['view product', 'add-to-cart', 'update-cart', 'delete-cart']);
         }
 
         
